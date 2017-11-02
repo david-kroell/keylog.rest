@@ -1,3 +1,0 @@
-$smth = "example"
-
-echo $smth
