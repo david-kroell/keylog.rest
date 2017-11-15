@@ -1,6 +1,8 @@
 # keylog.rest
 REST-API Keylogger Webapplication in Node.js
 
+Documentation can be found at <https://david-kroell.github.io/keylog.rest/>
+
 # Configuratoin
 You can specify custom configuration using the ```config.js``` file.
 
