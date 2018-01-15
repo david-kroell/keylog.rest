@@ -1,4 +1,6 @@
 # keylog.rest
+[![](https://images.microbadger.com/badges/version/kroelld/keylog.rest.svg)](https://microbadger.com/images/kroelld/keylog.rest "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/kroelld/keylog.rest.svg)](https://microbadger.com/images/kroelld/keylog.rest "Get your own image badge on microbadger.com")
+
 REST-API Keylogger Webapplication in Node.js
 
 Documentation can be found at <https://david-kroell.github.io/keylog.rest/>
