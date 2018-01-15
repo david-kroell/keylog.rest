@@ -20,7 +20,7 @@ router.get('/', function(req, res, next) {
     files.forEach( (file) => {
       file = file.replace(/\.[^/.]+$/, "");
 
-      // add to custom arraz
+      // add to custom array
       filesWithoutExtension.push(file);
 
       // send response after loop finished
@@ -32,7 +32,13 @@ router.get('/', function(req, res, next) {
   });
 });
 
-/* GET payload */
+/**
+ * @api {get} /payloads/{PayloadName} Get content of specific payload
+ * @apiName GetPayloads
+ * @apiGroup Payloads
+ *
+ * @apiSuccess {String} preprocessed payload script file
+ */
 router.get('/:file', function(req, res, next) {
   req.params.file.substring( 0, req.params.file.indexOf( ".hbs" ) );
   
