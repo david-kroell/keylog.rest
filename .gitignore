@@ -58,3 +58,5 @@ typings/
 .env
 
 /.vagrant
+/db.sqlite
+/config.js

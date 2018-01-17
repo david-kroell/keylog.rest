@@ -2,7 +2,7 @@ var path = require("path");
 
 module.exports = {
     payload: {
-        ip: "my ip",
+        ip: "1.2.3.4",
         port: "5000"
     },
     db: {
@@ -14,8 +14,8 @@ module.exports = {
     },
     api: {
         keys: [
-            '17ec91978bd039748853572fa78b5ab2f373a77e8aba4beffefee56f',
-            '08dcb5816dd46140728406db3066a453a1e84c1ff2b6aa6d19c6e653'
+            'secret',
+            ''
         ]
     }
 }

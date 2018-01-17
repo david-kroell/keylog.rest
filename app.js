@@ -4,7 +4,6 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
 var payload = require('./routes/payload');
 var api = require('./routes/api');
 var info = require('./routes/info');
@@ -12,6 +11,13 @@ var info = require('./routes/info');
 var app = express();
 
 // view engine setup
+var handlebars = require('express-handlebars').create({
+  layoutsDir: path.join(__dirname, "payloads/layouts"),
+  defaultLayout: 'main',
+  extname: 'hbs'
+});
+
+app.engine('hbs', handlebars.engine);
 app.set('views', path.join(__dirname, 'payloads'));
 app.set('view engine', 'hbs');
 
