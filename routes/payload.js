@@ -3,6 +3,10 @@ var router = express.Router();
 var path = require('path');
 const fs = require('fs');
 const config = require('../config');
+const exceptFiles = [
+  'error.hbs',
+  'layouts'
+]
 
 /**
  * @api {get} /payloads/ Request listing of available payloads
@@ -18,13 +22,15 @@ router.get('/', function(req, res, next) {
 
   fs.readdir(basepath, (err, files) => {
     files.forEach( (file) => {
-      file = file.replace(/\.[^/.]+$/, "");
-
-      // add to custom array
-      filesWithoutExtension.push(file);
-
+      console.log(file)
+      if(exceptFiles.indexOf(file) == -1){
+        file = file.replace(/\.[^/.]+$/, "");
+        // add to custom array
+        filesWithoutExtension.push(file);
+      }
       // send response after loop finished
       itemsProcessed++;
+
       if(itemsProcessed === files.length) {
         res.json({ description: 'Listing of available payloads', payloads: filesWithoutExtension });
       }
@@ -40,9 +46,9 @@ router.get('/', function(req, res, next) {
  * @apiSuccess {String} preprocessed payload script file
  */
 router.get('/:file', function(req, res, next) {
-  req.params.file.substring( 0, req.params.file.indexOf( ".hbs" ) );
-  
-  res.render(req.params.file, config.payload);
+  fs.exists('../payloads/' + req.params.file + '.hbs', (exists) => {
+    res.render(req.params.file + '.hbs', config.payload);
+  });
 });
 
 module.exports = router;
