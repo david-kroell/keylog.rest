@@ -7,7 +7,7 @@
   },
   "apidoc": {
     "title": "Keylogger with REST API",
-    "sampleUrl" : "http://example.com"
+    "sampleUrl": "http://example.com"
   },
   "dependencies": {
     "body-parser": "~1.18.2",
@@ -17,6 +17,8 @@
     "express-handlebars": "^3.0.0",
     "hbs": "^4.0.1",
     "morgan": "~1.9.0",
-    "serve-favicon": "~2.4.5"
+    "sequelize": "^4.31.2",
+    "serve-favicon": "~2.4.5",
+    "sqlite3": "^3.1.13"
   }
 }

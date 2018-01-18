@@ -3,17 +3,90 @@
 
 REST-API Keylogger Webapplication in Node.js
 
-Documentation can be found at <https://david-kroell.github.io/keylog.rest/>
+Documentation can be found at <https://david-kroell.github.io/keylog.rest/> and in this file.
 
-# Configuratoin
-You can specify custom configuration using the ```config.js``` file.
+# Installation
+## Running locally
+### Dependencies
+There is only one dependency, as npm gets installed with Node.js. But here is the 'complete' list:
+* Node.js
+* npm
+
+Make sure you also install the database you want to use.
+Available database systems:
+* PostgresSQL
+* MySQL
+* MSSQL
+* SQLite (nothing to install)
+
+[More information about available databases](https://www.npmjs.com/package/sequelize)
+
+### Prepare the installation
+
+* Get the code
+```bash
+git clone https://github.com/david-kroell/keylog.rest
+```
+* Install npm packages
+```bash
+cd keylog.rest && npm install
+```
+* Configure your installation
+
+Copy ```config.example.js``` to ```config.js``` and move on with the [configuration section](#configuration).
+
+* Run the application
+```bash
+npm start
+```
+Or make use of something like ```pm2```.
+
+## Deployment using Docker
+### Single Container
+Do NOT use the following command to run the container, because there is some more to do...
+
+```bash
+docker run -d --name keylogger -p 3000:3000 kroelld/keylog.rest
+```
+
+First of all head onto [configuration](#configuration) and get your config file ready. 
+You are also able to use your custom payloads.
 
 ```
+docker run -d --name keylogger -p 3000:3000 \
+    -v /path/to/payloads:/usr/src/app:ro \
+    -v /path/to/config.js:/usr/src/app/config.js:ro \
+    kroelld/keylog.rest
+```
+I assume you understand the command above, as if you are currently in the [Docker](https://www.docker.com/) section
+
+### Using microservices
+Actually, there is no documentation for this, but you can take a look at [docker-compose.yml](docker-compose.yml)
+
+TODO: Docs about docker (coming soon)
+
+# Configuratoin
+You can specify custom configuration using the ```config.example.js``` file. But make sure to copy it or rename it to ```config.js``` as it won´t work if you do not.
+
+```
+// config.js (from config.example.js)
 module.exports = {
     payload: {
-        ip: "my ip or hostname",
-        port: "5000",
-        key: "value"
+        ip: "1.2.3.4",
+        port: "5000"
+    },
+    db: {
+        database: "",
+        username: "",
+        password: "",
+        dialect: "sqlite",
+        sqliteFile: path.join(__dirname, "db.sqlite")
+    },
+    api: {
+        keys: [
+            'secret',
+            ''
+        ]
     }
 }
 ```
@@ -30,19 +103,10 @@ $a = "b"
 my ip or hostname
 echo $a
 ```
-# Deployment in Docker
-## Single Container
-Use the following command to run the container
 
-```
-docker run -d --name keylogger -p 3000:3000 kroelld/keylog.rest
-```
+The ```db``` section holds information about the database connection.
 
-You can also map custom payloads and configuration into the container
+The ```api``` section holds information about the api and the keys for accessing it.
 
-```
-docker run -d --name keylogger -p 3000:3000 \
-    -v /path/to/payloads:/usr/src/app:ro \
-    -v /path/to/config.js:/usr/src/app/config.js:ro \
-    kroelld/keylog.rest
-```
+# Disclaimer
+This whole software is provided for educational use only. The authors are not responsible for any misuse of the software. Performing any keylogging without permission from the owner of the computer system is illegal. Use at your own risk.
