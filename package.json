@@ -1,13 +1,13 @@
 {
   "name": "keylog.rest",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
   },
   "apidoc": {
     "title": "Keylogger with REST API",
-    "sampleUrl": "http://example.com"
+    "sampleUrl": "https://david-kroell.github.io/keylog.rest"
   },
   "dependencies": {
     "body-parser": "~1.18.2",
@@ -17,8 +17,30 @@
     "express-handlebars": "^3.0.0",
     "hbs": "^4.0.1",
     "morgan": "~1.9.0",
+    "mysql2": "^1.5.1",
     "sequelize": "^4.31.2",
     "serve-favicon": "~2.4.5",
     "sqlite3": "^3.1.13"
-  }
+  },
+  "description": "[![](https://images.microbadger.com/badges/version/kroelld/keylog.rest.svg)](https://microbadger.com/images/kroelld/keylog.rest \"Get your own version badge on microbadger.com\") [![](https://images.microbadger.com/badges/image/kroelld/keylog.rest.svg)](https://microbadger.com/images/kroelld/keylog.rest \"Get your own image badge on microbadger.com\")",
+  "main": "app.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/david-kroell/keylog.rest.git"
+  },
+  "keywords": [
+    "API",
+    "keylogger",
+    "sequelize"
+  ],
+  "author": "David Kröll",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/david-kroell/keylog.rest/issues"
+  },
+  "homepage": "https://github.com/david-kroell/keylog.rest#readme"
 }

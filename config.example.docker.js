@@ -6,11 +6,11 @@ module.exports = {
         port: "5000"
     },
     db: {
-        host: "",
-        database: "",
-        username: "",
-        password: "",
-        dialect: "sqlite",
+        host: "mysql",
+        database: "keylogger",
+        username: "keylog_user",
+        password: "secret",
+        dialect: "mysql",
         sqliteFile: path.join(__dirname, "db.sqlite")
     },
     api: {

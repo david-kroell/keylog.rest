@@ -12,14 +12,14 @@ There is only one dependency, as npm gets installed with Node.js. But here is th
 * Node.js
 * npm
 
-Make sure you also install the database you want to use.
+Make sure you also install the database and the Node.js driver you want to use.
 Available database systems:
 * PostgresSQL
 * MySQL
 * MSSQL
 * SQLite (nothing to install)
 
-[More information about available databases](https://www.npmjs.com/package/sequelize)
+[Click here if you want to learn something about the necessary database drivers](http://docs.sequelizejs.com/manual/installation/getting-started.html#installation)
 
 ### Prepare the installation
 
@@ -58,7 +58,7 @@ docker run -d --name keylogger -p 3000:3000 \
     -v /path/to/config.js:/usr/src/app/config.js:ro \
     kroelld/keylog.rest
 ```
-I assume you understand the command above, as if you are currently in the [Docker](https://www.docker.com/) section
+I assume you understand the command above, as if you are currently in the [Docker](https://www.docker.com/) section.
 
 ### Using microservices
 Actually, there is no documentation for this, but you can take a look at [docker-compose.yml](docker-compose.yml)
