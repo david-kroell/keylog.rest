@@ -33,10 +33,9 @@ Victim.create({
  * Specify API keys in config.js file. Call the API either with the 'X-API-KEY' header,
  * 'apikey' in the querystring or 'apikey' in body (POST).
  * 
- * @apiParam {String} apikey API Mandatry, but only once
- * @apiHeader {String} X-API-KEY Mandatory, but only once
+ * @apiParam {String} apikey Mandatory, but only once; either this or by using headers
+ * @apiHeader {String} X-API-KEY Mandatory, but only once; either this or by using querystring
  * @apiError Unauthorized
- * @apiPermission
  */
 router.use('/victims', (req, res, next) => {
     // grab api key from various request methods
@@ -55,8 +54,10 @@ router.use('/victims', (req, res, next) => {
  * @api {get} /api/victims Request listing of vicitms
  * @apiName GetAllVictims
  * @apiGroup Victims
+ * 
  * @apiUse Auth
- *
+ * @apiPermission Admin
+ * 
  * @apiSuccess {Array} victims victims which are already tracked
  */
 router.get('/victims', (req, res, next) => {
@@ -72,6 +73,7 @@ router.get('/victims', (req, res, next) => {
  * @apiGroup Victims
  * 
  * @apiUse Auth
+ * @apiPermission Admin
  * 
  * @apiParam {Number} id Victims unique id
  * @apiSuccess {Victim} victim single victim which is already tracked

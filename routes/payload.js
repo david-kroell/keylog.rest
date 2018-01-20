@@ -43,7 +43,7 @@ router.get('/', function(req, res, next) {
  * @apiName GetPayloads
  * @apiGroup Payloads
  *
- * @apiSuccess {String} preprocessed payload script file
+ * @apiSuccess {String} PayloadName preprocessed payload script file
  */
 router.get('/:file', function(req, res, next) {
   fs.exists('../payloads/' + req.params.file + '.hbs', (exists) => {

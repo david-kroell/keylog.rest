@@ -1,14 +1,14 @@
 define({
   "title": "Keylogger with REST API",
-  "sampleUrl": "http://example.com",
+  "sampleUrl": "https://david-kroell.github.io/keylog.rest",
   "name": "keylog.rest",
-  "version": "0.0.4",
-  "description": "",
+  "version": "0.1.0",
+  "description": "REST-API Keylogger Webapplication in Node.js",
   "defaultVersion": "0.0.0",
   "apidoc": "0.3.0",
   "generator": {
     "name": "apidoc",
-    "time": "2017-11-02T12:42:57.491Z",
+    "time": "2018-01-20T10:44:31.503Z",
     "url": "http://apidocjs.com",
     "version": "0.17.6"
   }

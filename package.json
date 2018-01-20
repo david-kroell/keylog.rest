@@ -19,15 +19,16 @@
     "morgan": "~1.9.0",
     "mysql2": "^1.5.1",
     "sequelize": "^4.31.2",
-    "serve-favicon": "~2.4.5",
-    "sqlite3": "^3.1.13"
+    "serve-favicon": "~2.4.5"
   },
-  "description": "[![](https://images.microbadger.com/badges/version/kroelld/keylog.rest.svg)](https://microbadger.com/images/kroelld/keylog.rest \"Get your own version badge on microbadger.com\") [![](https://images.microbadger.com/badges/image/kroelld/keylog.rest.svg)](https://microbadger.com/images/kroelld/keylog.rest \"Get your own image badge on microbadger.com\")",
+  "description": "REST-API Keylogger Webapplication in Node.js",
   "main": "app.js",
   "directories": {
     "doc": "docs"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "sqlite3": "^3.1.13"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/david-kroell/keylog.rest.git"

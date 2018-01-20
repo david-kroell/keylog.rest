@@ -1,5 +1,13 @@
 #!/usr/bin/env node
 
+var fs = require('fs');
+if (!fs.existsSync('config.js')) {
+  console.error("No config.js file present!");
+  console.log("Create on using:");
+  console.log("cp config.example.js config.js");
+  process.exit(1);
+}
+
 /**
  * Module dependencies.
  */
