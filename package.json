@@ -22,7 +22,7 @@
     "serve-favicon": "~2.4.5"
   },
   "description": "REST-API Keylogger Webapplication in Node.js",
-  "main": "app.js",
+  "main": "bin/www",
   "directories": {
     "doc": "docs"
   },

