@@ -16,6 +16,66 @@
     ]
   },
   {
+    "type": "post",
+    "url": "/api/victim",
+    "title": "Create the victim to log",
+    "name": "AddKeystrokes",
+    "group": "Log",
+    "permission": [
+      {
+        "name": "None"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "MACAddress",
+            "description": "<p>Victims MAC</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "UUID",
+            "description": ""
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "Hostname",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "Victim",
+            "description": "<p>Returns victim object with all attributes</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "routes/api.js",
+    "groupTitle": "Log",
+    "sampleRequest": [
+      {
+        "url": "https://david-kroell.github.io/keylog.rest/api/victim"
+      }
+    ]
+  },
+  {
     "type": "get",
     "url": "/payloads/",
     "title": "Request listing of available payloads",
@@ -116,6 +176,84 @@
         ]
       }
     },
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "X-API-KEY",
+            "description": "<p>Mandatory, but only once; either this or by using querystring</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "Unauthorized",
+            "description": ""
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "get",
+    "url": "/api/victims/:id",
+    "title": "Request attributes from specific victim",
+    "name": "GetVictim",
+    "group": "Victims",
+    "permission": [
+      {
+        "name": "Admin"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>Victims unique id</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "apikey",
+            "description": "<p>Mandatory, but only once; either this or by using headers</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Victim",
+            "optional": false,
+            "field": "victim",
+            "description": "<p>single victim which is already tracked</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "routes/api.js",
+    "groupTitle": "Victims",
+    "sampleRequest": [
+      {
+        "url": "https://david-kroell.github.io/keylog.rest/api/victims/:id"
+      }
+    ],
     "header": {
       "fields": {
         "Header": [
