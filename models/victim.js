@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     city: {
       type: DataTypes.STRING
     },
-    macAdress: {
+    macAddress: {
       type: DataTypes.STRING
     },
     os: {

