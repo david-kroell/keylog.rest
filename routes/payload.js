@@ -39,7 +39,7 @@ router.get('/', function(req, res, next) {
 });
 
 /**
- * @api {get} /payloads/{PayloadName} Get content of specific payload
+ * @api {get} /payloads/:payloadName Get content of specific payload
  * @apiName GetPayloads
  * @apiGroup Payloads
  *

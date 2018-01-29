@@ -21,23 +21,6 @@ Victim.Logs = Victim.hasMany(Log);
 sequelize.sync()
 .then(()=> {
   console.log("Set up database successfully");
-  // TODO: remove test-case
-  victim = Victim.create({
-    ip: '39.136.14.94',
-    country: 'Austria',
-    region: 'Vienna',
-    city: 'Vienna',
-    macAdress: 'aa-aa-aa-aa-aa-aa',
-    os: 'linux',
-    logs: [
-      { keystrokes: "asdf" },
-      { keystrokes: "jklö" },
-      { keystrokes: "password" },
-      { keystrokes: "123passwd321" },
-    ]
-  }, {
-    include: Victim.Logs
-  });
 })
 
 
