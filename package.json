@@ -7,7 +7,7 @@
   },
   "apidoc": {
     "title": "Keylogger with REST API",
-    "sampleUrl": "https://david-kroell.github.io/keylog.rest"
+    "sampleUrl": "https://log.its-nw.tk"
   },
   "dependencies": {
     "body-parser": "~1.18.2",
