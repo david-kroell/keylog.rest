@@ -37,7 +37,7 @@ router.use('/victims', (req, res, next) => {
     // grab api key from various request methods
     var apikey = req.header('X-API-KEY') || req.query.apikey || req.body.apikey;
 
-    if(req.method == "GET" && config.api.keys.indexOf(apikey) >= 0){
+    if(req.method == "GET" && config.api.keys.indexOf(apikey) == -1){
       res.status(403).json({error: "unauthorized"})
     } else{
       next();
