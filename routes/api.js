@@ -116,9 +116,7 @@ router.get('/victims/:id/logs', (req, res) => {
  * @apiSuccess {Object} Victim Returns victim object with all attributes
  */
 router.post('/victims', (req, res) => {
-  var ip = req.connection.remoteAddress;
-  // FIXME: rem default ip
-  // ip = "212.152.179.113";
+  var ip = req.headers['X-Real-IP'] || req.connection.remoteAddress;
   var useragent = req.headers['user-agent'];
   
   request.get('http://ip-api.com/json/' + ip, (error, response, body) => {
