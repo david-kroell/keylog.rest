@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(30)
     },
     macAddress: {
-      type: DataTypes.STRING(12)
+      type: DataTypes.STRING(20)
     },
     useragent: {
       type: DataTypes.STRING(200)

@@ -7,6 +7,8 @@ services:
     restart: always
     environment:
       NODE_ENV: production
+      # use this if you are behind a proxy, this is the header, which the proxy sets
+      PROXY_HEADER_REAL_IP_KEY: x-real-ip # for jwilder/nginx-proxy
     ports:
       - 3000:3000
     links:

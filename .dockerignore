@@ -9,3 +9,6 @@ README.md
 LICENSE
 .vscode
 .vagrant
+Vagrantfile
+docs
+config.example*
