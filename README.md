@@ -46,7 +46,7 @@ Or make use of something like ```pm2```.
 Do NOT use the following command to run the container, because there is some more to do...
 
 ```bash
-docker run -d --name keylogger -p 3000:3000 kroelld/keylog.rest
+docker run -d --name keylogger -p 3000:3000 davidkroell/keylog.rest
 ```
 
 First of all head onto [configuration](#configuration) and get your config file ready. 
@@ -56,7 +56,7 @@ You are also able to use your custom payloads.
 docker run -d --name keylogger -p 3000:3000 \
     -v /path/to/payloads:/usr/src/app:ro \
     -v /path/to/config.js:/usr/src/app/config.js:ro \
-    kroelld/keylog.rest
+    davidkroell/keylog.rest
 ```
 I assume you understand the command above, as if you are currently in the [Docker](https://www.docker.com/) section.
 

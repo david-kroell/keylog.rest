@@ -2,7 +2,7 @@ version: '3'
 
 services:
   web-api:
-    image: kroelld/keylog.rest
+    image: davidkroell/keylog.rest
     container_name: keylog.rest-api
     restart: always
     environment:
