@@ -11,7 +11,7 @@ services:
       PROXY_HEADER_REAL_IP_KEY: x-real-ip # for jwilder/nginx-proxy
     ports:
       - 3000:3000
-    links:
+    networks:
       - mysql
     volumes:
       - "./config.example.docker.js:/usr/src/app/config.js:ro" # customize
@@ -27,3 +27,7 @@ services:
       MYSQL_DATABASE: "keylogger"
       MYSQL_USER: "keylog_user"
       MYSQL_PASSWORD: "secret"
+
+networks:
+  mysql:
+  

