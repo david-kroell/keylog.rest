@@ -71,10 +71,6 @@ You can specify custom configuration using the ```config.example.js``` file. But
 ```
 // config.js (from config.example.js)
 module.exports = {
-    payload: {
-        ip: "1.2.3.4",
-        port: "5000"
-    },
     db: {
         database: "",
         username: "",
