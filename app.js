@@ -12,8 +12,6 @@ var app = express();
 
 // view engine setup
 var handlebars = require('express-handlebars').create({
-  layoutsDir: path.join(__dirname, "payloads/layouts"),
-  defaultLayout: 'main',
   extname: 'hbs'
 });
 

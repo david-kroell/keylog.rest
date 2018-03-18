@@ -4,8 +4,7 @@ var path = require('path');
 const fs = require('fs');
 const config = require('../config');
 const exceptFiles = [
-  'error.hbs',
-  'layouts'
+  'error.hbs'
 ]
 
 /**
@@ -22,9 +21,7 @@ router.get('/', function(req, res, next) {
 
   fs.readdir(basepath, (err, files) => {
     files.forEach( (file) => {
-      console.log(file)
       if(exceptFiles.indexOf(file) == -1){
-        file = file.replace(/\.[^/.]+$/, "");
         // add to custom array
         filesWithoutExtension.push(file);
       }
@@ -46,8 +43,10 @@ router.get('/', function(req, res, next) {
  * @apiSuccess {String} PayloadName preprocessed payload script file
  */
 router.get('/:file', function(req, res, next) {
-  fs.exists('../payloads/' + req.params.file + '.hbs', (exists) => {
-    res.render(req.params.file + '.hbs', config.payload);
+  var file = path.join(__dirname, '../payloads', req.params.file );
+
+  fs.exists(file, (exists) => {
+    res.download(file);
   });
 });
 
